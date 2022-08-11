@@ -1,0 +1,70 @@
+@page "/listadoestudiantes"
+@inject ListarEstudiantesUseCase ListarEstudiantesUseCase
+@inject IJSRuntime JsRuntime;
+@inject BajaEstudianteUseCase BajaEstudianteUseCase
+@inject NavigationManager Navegador
+<PageTitle>Listado de Estudiantes</PageTitle>
+
+<div><i class="fa fa-align-center" aria-hidden="true"><h3>Estudiantes</h3></i></div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>DNI</th>
+            <th>APELLIDO</th>
+            <th>NOMBRE</th>
+            <th>MAIL</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var alumno in _lista)
+        {
+            <tr>
+                <td>@alumno.DNI</td>
+                <td>@alumno.Apellido</td>
+                <td>@alumno.Nombre</td>
+                <td>@alumno.Mail</td>
+                <td> 
+                    <button class="btn btn-primary" @onclick="()=> ModificarEstudiante(alumno.DNI)">
+                        <i class="oi oi-pencil"></i>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=> BajaEstudiante(alumno.DNI)">
+                        <i class="oi oi-trash"></i>
+                    </button>
+                    <button class="btn btn-info" @onclick="()=> MostrarInscripciones(alumno.DNI)">
+                        <i class="oi oi-menu"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button class="btn btn-primary" href="javascript:void(0);" onclick="history.go(-1);">Volver</button>
+
+@code {
+    List<Estudiante> _lista = new List<Estudiante>();
+    protected override void OnInitialized()
+    {
+        _lista = ListarEstudiantesUseCase.Ejecutar();
+    }
+    async Task BajaEstudiante(int dni)
+    {
+        bool confirmado = await JsRuntime.InvokeAsync<bool>("confirm", $"Desea eliminar el estudiante {dni}?");
+        if (confirmado)
+        {
+            BajaEstudianteUseCase.Ejecutar(dni);
+            _lista = ListarEstudiantesUseCase.Ejecutar(); 
+        }
+    }
+    void ModificarEstudiante(int dni)
+    {
+        Navegador.NavigateTo($"estudiante/{dni}");
+    }
+  
+    void MostrarInscripciones(int dni)
+    {
+        Navegador.NavigateTo($"cursosinscriptos/{dni}");
+    }
+}
+
+

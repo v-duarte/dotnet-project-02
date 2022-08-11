@@ -1,0 +1,49 @@
+@page "/estudiantesinscriptos/{titulo?}"
+@inject ListarEstudiantesUseCase ListarEstudiantesUseCase
+@inject ListarInscripcionesUseCase ListarInscripcionesUseCase
+@inject IJSRuntime JsRuntime;
+<div><i class="fa fa-align-center" aria-hidden="true"><h3>Estudiantes inscriptos en @titulo</h3></i></div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>DNI</th>
+            <th>APELLIDO</th>
+            <th>NOMBRE</th>
+            <th>MAIL</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var _lista = _inscripciones.Where(i => i.Titulo == titulo)
+                                    .Join(_estudiantes, l=> l.DNI,e=> e.DNI,
+                                    (l,e) => new {
+                                        DNI = e.DNI,
+                                        Apellido = e.Apellido,
+                                        Nombre = e.Nombre,
+                                        Mail = e.Mail
+                                    });
+            foreach (var listado in @_lista)
+            {
+                <tr>
+                    <td>@listado.DNI</td>
+                    <td>@listado.Apellido</td>
+                    <td>@listado.Nombre</td>
+                    <td>@listado.Mail </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<button class="btn btn-primary" href="javascript:void(0);" onclick="history.go(-1);">Volver</button>
+
+@code {
+    [Parameter] public string? titulo { get; set; }
+    List<Estudiante> _estudiantes = new List<Estudiante>();
+    List<Inscripcion> _inscripciones = new List<Inscripcion>();
+
+    protected override void OnInitialized()
+    {
+        _estudiantes = ListarEstudiantesUseCase.Ejecutar();
+        _inscripciones = ListarInscripcionesUseCase.Ejecutar();
+    }
+}

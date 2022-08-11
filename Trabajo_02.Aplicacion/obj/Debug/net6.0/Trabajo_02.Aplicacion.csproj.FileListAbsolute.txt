@@ -1,0 +1,12 @@
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\bin\Debug\net6.0\Trabajo_02.Aplicacion.deps.json
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\bin\Debug\net6.0\Trabajo_02.Aplicacion.dll
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\bin\Debug\net6.0\Trabajo_02.Aplicacion.pdb
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\obj\Debug\net6.0\Trabajo_02.Aplicacion.csproj.AssemblyReference.cache
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\obj\Debug\net6.0\Trabajo_02.Aplicacion.GeneratedMSBuildEditorConfig.editorconfig
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\obj\Debug\net6.0\Trabajo_02.Aplicacion.AssemblyInfoInputs.cache
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\obj\Debug\net6.0\Trabajo_02.Aplicacion.AssemblyInfo.cs
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\obj\Debug\net6.0\Trabajo_02.Aplicacion.csproj.CoreCompileInputs.cache
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\obj\Debug\net6.0\Trabajo_02.Aplicacion.dll
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\obj\Debug\net6.0\refint\Trabajo_02.Aplicacion.dll
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\obj\Debug\net6.0\Trabajo_02.Aplicacion.pdb
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Aplicacion\obj\Debug\net6.0\ref\Trabajo_02.Aplicacion.dll

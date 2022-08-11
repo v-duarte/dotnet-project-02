@@ -1,0 +1,49 @@
+@page "/cursosinscriptos/{dni:int?}"
+@inject ListarCursosUseCase ListarCursosUseCase
+@inject ListarInscripcionesUseCase ListarInscripcionesUseCase
+@inject IJSRuntime JsRuntime;
+<div><i class="fa fa-align-center" aria-hidden="true"><h3>Cursos en las que el estudiante DNI: @dni esta inscripto</h3></i></div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>TITULO</th>
+            <th>DESCRIPCION</th>
+            <th>FECHA DE INICIO </th>
+            <th>FECHA DE FINALIZACION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var _lista = _inscripciones.Where(i => i.DNI == dni)
+                                    .Join(_cursos, l=> l.Titulo,c=> c.Titulo,
+                                    (l,c) => new {
+                                        Titulo = l.Titulo,
+                                        Descripcion = c.Descripcion,
+                                        FechaInicio = c.FechaDeInicio,
+                                        FechaFin = c.FechaDeFinalizacion
+                                    });
+            foreach (var listado in _lista)
+            {
+            <tr>
+                <td>@listado.Titulo</td>
+                <td>@listado.Descripcion</td>
+                <td>@listado.FechaInicio</td>
+                <td>@listado.FechaFin </td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>
+<button class="btn btn-primary" href="javascript:void(0);" onclick="history.go(-1);">Volver</button>
+
+@code {
+    [Parameter] public int? dni { get; set; }
+    List<Curso> _cursos = new List<Curso>();
+    List<Inscripcion> _inscripciones = new List<Inscripcion>();
+
+    protected override void OnInitialized()
+    {
+        _cursos = ListarCursosUseCase.Ejecutar();
+        _inscripciones = ListarInscripcionesUseCase.Ejecutar();
+    }
+}

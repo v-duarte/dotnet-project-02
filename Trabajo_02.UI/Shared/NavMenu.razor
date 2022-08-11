@@ -1,0 +1,79 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <nav class="navbar navbar-dark">
+            <a class="navbar-brand" href="">Institución</a>
+            <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/estudiantescursosfin">
+                <span class="oi oi-people" aria-hidden="true"></span> Estudiantes que finalizaron cursos
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/estudiantescursosactual">
+                <span class="oi oi-people" aria-hidden="true"></span> Estudiantes que cursan actualmente
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/listadoestudiantes">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Listado de estudiantes
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/listadocursos">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Listado de cursos
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/listadoinscripciones">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Listado de inscripciones
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/estudiante">
+                <span class="oi oi-plus" aria-hidden="true"></span> Agregar Estudiante
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/curso">
+                <span class="oi oi-plus" aria-hidden="true"></span> Agregar Curso
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/inscripcion">
+                <span class="oi oi-plus" aria-hidden="true"></span> Agregar inscripcion
+            </NavLink>
+        </div>
+
+
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

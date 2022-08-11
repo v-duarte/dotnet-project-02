@@ -1,0 +1,81 @@
+@page "/inscripcion/{titulo?}/{dni:int?}"
+@inject ObtenerInscripcionUseCase ObtenerInscripcionUseCase
+@inject ModificarInscripcionUseCase ModificarInscripcionUseCase
+@inject AltaInscripcionUseCase AltaInscripcionUseCase
+@inject ObtenerCursoUseCase ObtenerCursoUseCase
+@inject ObtenerEstudianteUseCase ObtenerEstudianteUseCase
+@inject ListarEstudiantesUseCase ListarEstudiantesUseCase
+@inject ListarCursosUseCase ListarCursosUseCase
+@inject NavigationManager Navegador;
+
+ 
+@if (_esNuevaInscripcion){
+    <h3>Agregando una nueva inscripcion</h3>
+}
+else
+{
+    <h3>Modificando a la inscripcion "@_curso"</h3>
+}
+<p>Estudiante:</p>
+<p>
+<select class="custom-select" @bind ="_alumno" >
+    <option value="-1" disabled>Seleccione un estudiante</option>
+    @foreach (var alu in _listaAlu)
+    {
+        <option value="@alu.DNI"> @alu.DNI @alu.Apellido @alu.Nombre</option>   
+    }
+   </select>
+</p>
+<p>
+<p>Curso:</p>
+<select select class="custom-select" @bind ="_curso">
+    <option value="" disabled>Seleccione un curso</option>
+    @foreach (var cur in _listaCur)
+    {
+        <option value="@cur.Titulo"> @cur.Titulo</option>   
+    }
+   </select>
+</p>
+<button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+<button class="btn btn-primary" href="javascript:void(0);" onclick="history.go(-1);">Volver</button>
+@code {
+    Inscripcion _inscripcion = new Inscripcion();
+    List<Estudiante> _listaAlu = new List<Estudiante>();
+    List<Curso> _listaCur = new List<Curso>();
+    int _alumno = -1;
+    string _curso ="";
+    [Parameter] public string? titulo { get; set; }
+    [Parameter] public int? dni { get; set; }
+    bool _esNuevaInscripcion=true;
+    int _dniSeleccion { get; set; }
+
+    protected override void OnParametersSet(){
+        _listaAlu = ListarEstudiantesUseCase.Ejecutar();
+        _listaCur = ListarCursosUseCase.Ejecutar();
+        if ((titulo != null) && (dni != null)){
+            var cur_hallado = ObtenerCursoUseCase.Ejecutar(titulo);
+            var alu_hallado = ObtenerEstudianteUseCase.Ejecutar(dni.Value);
+            #nullable disable warnings
+            var ins_hallada = ObtenerInscripcionUseCase.Ejecutar(alu_hallado.DNI, cur_hallado.Titulo);
+            #nullable enable warnings
+            if (ins_hallada != null){
+                _alumno = alu_hallado.DNI;
+                _curso = cur_hallado.Titulo;
+                _inscripcion = ins_hallada;
+                _esNuevaInscripcion = false;
+            }
+        }
+    }
+    void Aceptar()
+    {
+        if (_esNuevaInscripcion){
+            AltaInscripcionUseCase.Ejecutar(_alumno, _curso);
+        }
+        else{
+            Inscripcion _nueva = new Inscripcion(_alumno, _curso, DateTime.Today.ToShortDateString());
+            ModificarInscripcionUseCase.Ejecutar(_inscripcion, _nueva);
+        }
+        _inscripcion = new Inscripcion();
+        Navegador.NavigateTo("listadoinscripciones");
+    }
+}

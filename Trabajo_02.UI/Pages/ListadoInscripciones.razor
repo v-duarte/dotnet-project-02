@@ -1,0 +1,56 @@
+@page "/listadoinscripciones"
+@inject ListarInscripcionesUseCase ListarInscripcionesUseCase
+@inject IJSRuntime JsRuntime;
+@inject BajaInscripcionUseCase BajaInscripcionUseCase
+@inject NavigationManager Navegador
+<PageTitle>Listado de Inscripciones</PageTitle>
+
+<div><i class="fa fa-align-center" aria-hidden="true"><h3>Inscripciones</h3></i></div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ESTUDIANTE</th>
+            <th>CURSO</th>
+            <th>FECHA DE INSCRIPCION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var inscripcion in _lista)
+        {
+            <tr>
+                <td>@inscripcion.DNI </td>
+                <td>@inscripcion.Titulo</td>
+                <td>@inscripcion.FechaDeInscripcion</td>
+                <td> 
+                    <button class="btn btn-primary" @onclick="()=> ModificarInscripcion(inscripcion.DNI, inscripcion.Titulo)">
+                        <i class="oi oi-pencil"></i>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=> BajaInscripcion(inscripcion.DNI, inscripcion.Titulo)">
+                        <i class="oi oi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button class="btn btn-primary" href="javascript:void(0);" onclick="history.go(-1);">Volver</button>
+@code {
+    List<Inscripcion> _lista = new List<Inscripcion>();
+    protected override void OnInitialized()
+    {
+        _lista = ListarInscripcionesUseCase.Ejecutar();
+    }
+    async Task BajaInscripcion(int estudiante, string curso)
+    {
+        bool confirmado = await JsRuntime.InvokeAsync<bool>("confirm", $"Desea eliminar la inscripcion del estudiante DNI:{estudiante} del curso {curso}?");
+        if (confirmado)
+        {
+            BajaInscripcionUseCase.Ejecutar(estudiante, curso);
+            _lista = ListarInscripcionesUseCase.Ejecutar(); 
+        }
+    }
+    void ModificarInscripcion (int estudiante, string curso)
+    {
+        Navegador.NavigateTo($"inscripcion/{curso}/{estudiante}");
+    }
+}

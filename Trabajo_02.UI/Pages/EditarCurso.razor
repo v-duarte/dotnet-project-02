@@ -1,0 +1,57 @@
+@page "/curso/{titulo?}"
+@inject ObtenerCursoUseCase ObtenerCursoUseCase
+@inject ModificarCursoUseCase ModificarCursoUseCase
+@inject AltaCursoUseCase AltaCursoUseCase
+@inject NavigationManager Navegador;
+ 
+@if (_esNuevoCurso){
+    <h3>Agregando un nuevo curso</h3>
+}
+else
+{
+    <h3>Modificando al curso "@_curso.Titulo"</h3>
+}
+<p>Titulo</p>
+<input placeholder="Titulo" @bind="_curso.Titulo" class="form-control">
+<p>Descripcion:</p>
+<input placeholder="Descripcion" @bind="_curso.Descripcion" class="form-control">
+<p>Fecha de inicio del curso:</p>
+<input placeholder= "01-01-2022" type="date" @bind="FechaInicio">
+<p>Fecha de finalizacion del curso:</p>
+<input placeholder= "01-02-2022" type="date" @bind="FechaFin">
+<p></p>
+<button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+<button class="btn btn-primary" href="javascript:void(0);" onclick="history.go(-1);">Volver</button>
+@code {
+    Curso _curso = new Curso();
+    [Parameter] public string? titulo { get; set; }
+    DateTime FechaInicio { get; set; } = DateTime.Today;
+    DateTime FechaFin { get; set; } = DateTime.Today;
+    bool _esNuevoCurso=true;
+    protected override void OnParametersSet(){
+        if (titulo != null){
+            var cur_hallado = ObtenerCursoUseCase.Ejecutar(titulo);
+            if (cur_hallado != null){
+                _curso = cur_hallado;
+                _esNuevoCurso = false;
+            }
+        }
+    }
+    void Aceptar()
+    {
+        if (_esNuevoCurso){
+            _curso.FechaDeInicio = FechaInicio.ToString("dd/MM/yyyy");
+            _curso.FechaDeFinalizacion = FechaFin.ToString("dd/MM/yyyy");
+            var consulta = ObtenerCursoUseCase.Ejecutar(_curso.Titulo);
+            if (consulta != null)
+                Navegador.NavigateTo("estudianteexistente");
+            else
+                AltaCursoUseCase.Ejecutar(_curso);
+        }
+        else{
+            ModificarCursoUseCase.Ejecutar(_curso);
+        }
+        _curso = new Curso();
+        Navegador.NavigateTo("listadocursos");
+    }
+}

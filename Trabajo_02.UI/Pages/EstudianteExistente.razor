@@ -1,0 +1,9 @@
+@page "/estudianteexistente"
+@inject NavigationManager Navegador
+<p1>Ya existe un estudiante con el DNI ingresado, revise el listado de estudaintes y en caso de ser necesario modifique los datos del estudiante en particular.</p1>
+<button class="btn btn-primary" @onclick="()=> Listado()">Ir al listado de estudaintes</button>
+@code {
+    void Listado(){
+        Navegador.NavigateTo("listadoestudiantes");
+    }
+}

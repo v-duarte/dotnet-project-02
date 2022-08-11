@@ -1,0 +1,45 @@
+@page "/estudiante/{dni:int?}"
+@inject ObtenerEstudianteUseCase ObtenerEstudianteUseCase
+@inject ModificarEstudianteUseCase ModificarEstudianteUseCase
+@inject NavigationManager Navegador;
+@inject AltaEstudianteUseCase AltaEstudianteUseCase
+
+@if (_esNuevoEstudiante){
+    <h3>Agregando un nuevo estudiante</h3>
+}
+else
+{
+    <h3>Modificando al estudiante "@_estudiante.Apellido, @_estudiante.Nombre"</h3>
+}
+<input required placeholder="DNI" @bind="_estudiante.DNI" class="form-control" >
+<input required placeholder="Apellido" @bind="_estudiante.Apellido" class="form-control" >
+<input required placeholder="Nombre" @bind="_estudiante.Nombre" class="form-control" >
+<input type="email" required placeholder="Correo electronico" @bind="_estudiante.Mail" class="form-control" >
+<button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+<button class="btn btn-primary" href="javascript:void(0);" onclick="history.go(-1);">Volver</button>
+@code {
+    Estudiante _estudiante = new Estudiante(0, "", "", "");
+    [Parameter] public int? dni { get; set; }
+    bool _esNuevoEstudiante=true;
+    protected override void OnParametersSet(){
+        if (dni != null){
+            var alu_hallado = ObtenerEstudianteUseCase.Ejecutar(dni.Value);
+            if (alu_hallado != null){
+                _estudiante = alu_hallado;
+                _esNuevoEstudiante = false;
+            }
+        }
+    }
+    void Aceptar()
+    {
+        if (_esNuevoEstudiante){
+            AltaEstudianteUseCase.Ejecutar(_estudiante);
+        }
+        else{
+            ModificarEstudianteUseCase.Ejecutar(_estudiante);
+        }
+        _estudiante = new Estudiante();
+        Navegador.NavigateTo("listadoestudiantes");
+    }
+}
+

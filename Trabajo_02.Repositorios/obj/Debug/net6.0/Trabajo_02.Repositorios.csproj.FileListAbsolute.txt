@@ -1,0 +1,15 @@
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\bin\Debug\net6.0\Trabajo_02.Repositorios.deps.json
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\bin\Debug\net6.0\Trabajo_02.Repositorios.dll
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\bin\Debug\net6.0\Trabajo_02.Repositorios.pdb
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\bin\Debug\net6.0\Trabajo_02.Aplicacion.dll
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\bin\Debug\net6.0\Trabajo_02.Aplicacion.pdb
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\obj\Debug\net6.0\Trabajo_02.Repositorios.csproj.AssemblyReference.cache
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\obj\Debug\net6.0\Trabajo_02.Repositorios.GeneratedMSBuildEditorConfig.editorconfig
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\obj\Debug\net6.0\Trabajo_02.Repositorios.AssemblyInfoInputs.cache
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\obj\Debug\net6.0\Trabajo_02.Repositorios.AssemblyInfo.cs
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\obj\Debug\net6.0\Trabajo_02.Repositorios.csproj.CoreCompileInputs.cache
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\obj\Debug\net6.0\Trabajo_02.Repositorios.csproj.CopyComplete
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\obj\Debug\net6.0\Trabajo_02.Repositorios.dll
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\obj\Debug\net6.0\refint\Trabajo_02.Repositorios.dll
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\obj\Debug\net6.0\Trabajo_02.Repositorios.pdb
+F:\UNLP\.NET\Trabajo_02\Trabajo_02.Repositorios\obj\Debug\net6.0\ref\Trabajo_02.Repositorios.dll
